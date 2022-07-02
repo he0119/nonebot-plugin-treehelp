@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "nonebot-plugin-treehelp"
+version = "0.0.1"
+description = "适用于 Nonebot2 的树形帮助插件"
+authors = ["hemengyang <hmy0119@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/he0119/nonebot-plugin-treehelp"
+repository = "https://github.com/he0119/nonebot-plugin-treehelp"
+documentation = "https://github.com/he0119/nonebot-plugin-treehelp#readme"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+nonebot2 = "^2.0.0-beta.4"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+isort = "^5.10.1"
+nonebug = "^0.2.1"
+pytest-cov = "^3.0.0"
+pytest-xdist = "^2.5.0"
+pytest-mock = "^3.7.0"
+pre-commit = "^2.17.0"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+line_length = 88
+skip_gitignore = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
