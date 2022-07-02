@@ -2,7 +2,7 @@
 
 获取插件的帮助信息，并通过子插件的形式获取次级菜单
 """
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Dict, Optional
 
 from nonebot import get_loaded_plugins
 
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 #     help: str
 
 
-_plugins: Optional[dict[str, "Plugin"]] = None
+_plugins: Optional[Dict[str, "Plugin"]] = None
 
 
 # def sort_commands(cmds: list[tuple[str, ...]]) -> list[tuple[str, ...]]:
@@ -64,7 +64,7 @@ _plugins: Optional[dict[str, "Plugin"]] = None
 #     return CommandInfo(name=name, aliases=aliases, help=help)
 
 
-def get_plugins() -> dict[str, "Plugin"]:
+def get_plugins() -> Dict[str, "Plugin"]:
     global _plugins
     if _plugins is None:
         # 仅获取适配了元信息的插件
