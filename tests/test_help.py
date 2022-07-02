@@ -3,34 +3,33 @@ from nonebug import App
 
 from .utils import make_fake_event, make_fake_message
 
+# @pytest.mark.asyncio
+# async def test_sort_commands(app: App):
+#     from nonebot_plugin_treehelp.data_source import sort_commands
 
-@pytest.mark.asyncio
-async def test_sort_commands(app: App):
-    from nonebot_plugin_treehelp.data_source import sort_commands
+#     cmds = [
+#         ("ff14", "nuannuan"),
+#         ("时尚品鉴",),
+#         ("最终幻想14", "时尚品鉴"),
+#         ("nuannuan",),
+#     ]
+#     assert sort_commands(cmds) == [
+#         ("ff14", "nuannuan"),
+#         ("nuannuan",),
+#         ("最终幻想14", "时尚品鉴"),
+#         ("时尚品鉴",),
+#     ]
 
-    cmds = [
-        ("ff14", "nuannuan"),
-        ("时尚品鉴",),
-        ("最终幻想14", "时尚品鉴"),
-        ("nuannuan",),
-    ]
-    assert sort_commands(cmds) == [
-        ("ff14", "nuannuan"),
-        ("nuannuan",),
-        ("最终幻想14", "时尚品鉴"),
-        ("时尚品鉴",),
-    ]
-
-    cmds = [
-        ("时尚品鉴",),
-        ("最终幻想14", "时尚品鉴"),
-        ("nuannuan",),
-    ]
-    assert sort_commands(cmds) == [
-        ("nuannuan",),
-        ("最终幻想14", "时尚品鉴"),
-        ("时尚品鉴",),
-    ]
+#     cmds = [
+#         ("时尚品鉴",),
+#         ("最终幻想14", "时尚品鉴"),
+#         ("nuannuan",),
+#     ]
+#     assert sort_commands(cmds) == [
+#         ("nuannuan",),
+#         ("最终幻想14", "时尚品鉴"),
+#         ("时尚品鉴",),
+#     ]
 
 
 @pytest.mark.asyncio
