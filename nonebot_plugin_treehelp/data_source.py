@@ -55,6 +55,18 @@ _plugins: Optional[Dict[str, "Plugin"]] = None
 #     return CommandInfo(name=name, aliases=aliases, help=help)
 
 
+def format_description(plugins: List["Plugin"]) -> str:
+    """格式化描述"""
+    return "\n".join(
+        sorted(
+            map(
+                lambda x: f"{x.metadata.name} # {x.metadata.description}",  # type: ignore
+                plugins,
+            )
+        )
+    )
+
+
 def get_plugins() -> Dict[str, "Plugin"]:
     """获取适配了元信息的插件"""
     global _plugins
@@ -74,14 +86,7 @@ def get_plugin_list() -> str:
     ]
 
     docs = "插件列表：\n"
-    docs += "\n".join(
-        sorted(
-            map(
-                lambda x: f"{x.metadata.name} # {x.metadata.description}",  # type: ignore
-                plugins,
-            )
-        )
-    )
+    docs += format_description(plugins)
     return docs
 
 
@@ -90,7 +95,14 @@ def get_plugin_help(name: str) -> Optional[str]:
     plugins = get_plugins()
 
     plugin = plugins.get(name)
-    if plugin:
-        return f"{name}\n\n{plugin.metadata.usage}"  # type: ignore
-    else:
-        return None
+    if not plugin:
+        return
+
+    usage = plugin.metadata.usage  # type: ignore
+
+    sub_plugins = [
+        plugin for plugin in plugin.sub_plugins if plugin.metadata is not None
+    ]
+    sub_plugins_desc = format_description(sub_plugins)
+
+    return "\n\n".join([x for x in [name, usage, sub_plugins_desc] if x])
