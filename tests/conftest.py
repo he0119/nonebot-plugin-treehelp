@@ -1,15 +1,9 @@
-from pathlib import Path
-
 import pytest
 from nonebug.app import App
 
 
 @pytest.fixture
-def app(
-    nonebug_init: None,
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-) -> App:
+def app(nonebug_init: None, monkeypatch: pytest.MonkeyPatch) -> App:
     import nonebot
 
     # 加载插件

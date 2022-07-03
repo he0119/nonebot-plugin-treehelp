@@ -2,22 +2,13 @@
 
 获取插件的帮助信息，并通过子插件的形式获取次级菜单
 """
-from typing import TYPE_CHECKING, Dict, Optional
+from dataclasses import dataclass
+from typing import TYPE_CHECKING, Dict, List, Optional
 
 from nonebot import get_loaded_plugins
 
 if TYPE_CHECKING:
     from nonebot.plugin import Plugin
-
-
-# @dataclass
-# class CommandInfo:
-#     """命令的信息"""
-
-#     name: str
-#     aliases: list[str]
-#     help: str
-
 
 _plugins: Optional[Dict[str, "Plugin"]] = None
 
@@ -65,24 +56,29 @@ _plugins: Optional[Dict[str, "Plugin"]] = None
 
 
 def get_plugins() -> Dict[str, "Plugin"]:
+    """获取适配了元信息的插件"""
     global _plugins
+
     if _plugins is None:
-        # 仅获取适配了元信息的插件
         plugins = filter(lambda x: x.metadata is not None, get_loaded_plugins())
         _plugins = {x.metadata.name: x for x in plugins}  # type: ignore
+
     return _plugins
 
 
 def get_plugin_list() -> str:
-    # 仅获取适配了元信息的插件
-    plugins = get_plugins()
+    """获取插件列表"""
+    # 仅保留根插件
+    plugins = [
+        plugin for plugin in get_plugins().values() if plugin.parent_plugin is None
+    ]
 
     docs = "插件列表：\n"
     docs += "\n".join(
         sorted(
             map(
                 lambda x: f"{x.metadata.name} # {x.metadata.description}",  # type: ignore
-                plugins.values(),
+                plugins,
             )
         )
     )
