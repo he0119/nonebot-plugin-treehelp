@@ -7,7 +7,7 @@ from nonebot.adapters import Message
 from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
 
-from .data_source import get_plugin_help, get_plugin_list
+from .data_source import get_plugin_help, get_plugin_list, get_tree_view
 
 __plugin_meta__ = PluginMetadata(
     name="帮助",
@@ -24,6 +24,8 @@ async def help_handle(args: Message = CommandArg()):
 
     if plaintext == "list":
         await help_cmd.finish(get_plugin_list())
+    elif plaintext == "tree":
+        await help_cmd.finish(get_tree_view())
     elif plaintext:
         command_help = get_plugin_help(plaintext)
         if command_help:
