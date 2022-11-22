@@ -33,7 +33,7 @@ from .utils import make_fake_event, make_fake_message
 
 async def test_help(app: App):
     """测试帮助"""
-    from nonebot_plugin_treehelp import help_cmd
+    from nonebot_plugin_treehelp import __plugin_meta__, help_cmd
 
     async with app.test_matcher(help_cmd) as ctx:
         bot = ctx.create_bot()
@@ -43,7 +43,7 @@ async def test_help(app: App):
         ctx.receive_event(bot, event)
         ctx.should_call_send(
             event,
-            "帮助\n\n获取插件列表\n/help list\n获取某个插件的帮助\n/help 插件名",
+            f"帮助\n\n{__plugin_meta__.usage}",
             True,
         )
         ctx.should_finished()
@@ -65,7 +65,7 @@ async def test_help_list(app: App):
 
 async def test_help_help(app: App):
     """测试获取帮助插件帮助"""
-    from nonebot_plugin_treehelp import help_cmd
+    from nonebot_plugin_treehelp import __plugin_meta__, help_cmd
 
     async with app.test_matcher(help_cmd) as ctx:
         bot = ctx.create_bot()
@@ -75,7 +75,7 @@ async def test_help_help(app: App):
         ctx.receive_event(bot, event)
         ctx.should_call_send(
             event,
-            "帮助\n\n获取插件列表\n/help list\n获取某个插件的帮助\n/help 插件名",
+            f"帮助\n\n{__plugin_meta__.usage}",
             True,
         )
         ctx.should_finished()
