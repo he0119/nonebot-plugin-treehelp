@@ -7,12 +7,12 @@ from nonebot.adapters import Message
 from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
 
-from .data_source import get_plugin_help, get_plugin_list
+from .data_source import get_plugin_help, get_plugin_list, get_tree_view
 
 __plugin_meta__ = PluginMetadata(
     name="帮助",
     description="获取插件帮助信息",
-    usage="获取插件列表\n/help list\n获取某个插件的帮助\n/help 插件名",
+    usage="获取插件列表\n/help list\n获取某个插件的帮助\n/help 插件名\n获取插件树\n/help tree",
 )
 
 help_cmd = on_command("help", aliases={"帮助"})
@@ -22,8 +22,10 @@ help_cmd = on_command("help", aliases={"帮助"})
 async def help_handle(args: Message = CommandArg()):
     plaintext = args.extract_plain_text().strip()
 
-    if plaintext == "list":
+    if plaintext in ["list", "列表"]:
         await help_cmd.finish(get_plugin_list())
+    elif plaintext in ["tree", "树"]:
+        await help_cmd.finish(get_tree_view())
     elif plaintext:
         command_help = get_plugin_help(plaintext)
         if command_help:

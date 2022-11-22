@@ -2,8 +2,8 @@
 
 获取插件的帮助信息，并通过子插件的形式获取次级菜单
 """
-from dataclasses import dataclass
-from typing import TYPE_CHECKING, Dict, List, Optional
+from textwrap import indent
+from typing import TYPE_CHECKING, Dict, List, Optional, Set
 
 from nonebot import get_loaded_plugins
 
@@ -106,3 +106,26 @@ def get_plugin_help(name: str) -> Optional[str]:
     sub_plugins_desc = format_description(sub_plugins)
 
     return "\n\n".join([x for x in [name, usage, sub_plugins_desc] if x])
+
+
+def get_tree_string(plugins: Set["Plugin"]) -> str:
+    """通过递归获取树形结构的字符串"""
+    filtered_plugins = filter(lambda x: x.metadata is not None, plugins)
+    sorted_plugins = sorted(filtered_plugins, key=lambda x: x.metadata.name)  # type: ignore
+
+    docs = []
+    for plugin in sorted_plugins:
+        docs.append(f"{plugin.metadata.name} # {plugin.metadata.description}")  # type: ignore
+        sub = get_tree_string(plugin.sub_plugins)
+        if sub:
+            docs.append(indent(sub, "--"))
+    return "\n".join(docs)
+
+
+def get_tree_view() -> str:
+    """获取树形结构"""
+    plugins = {
+        plugin for plugin in get_plugins().values() if plugin.parent_plugin is None
+    }
+    docs = get_tree_string(plugins)
+    return docs
