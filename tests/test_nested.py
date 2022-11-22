@@ -1,10 +1,8 @@
-import pytest
 from nonebug import App
 
 from .utils import make_fake_event, make_fake_message
 
 
-@pytest.mark.asyncio
 async def test_parent(app: App):
     """测试父插件"""
     from nonebot import require
@@ -22,7 +20,6 @@ async def test_parent(app: App):
         ctx.should_finished()
 
 
-@pytest.mark.asyncio
 async def test_sub(app: App):
     """测试子插件"""
     from nonebot import require

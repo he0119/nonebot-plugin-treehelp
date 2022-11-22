@@ -22,9 +22,9 @@ help_cmd = on_command("help", aliases={"帮助"})
 async def help_handle(args: Message = CommandArg()):
     plaintext = args.extract_plain_text().strip()
 
-    if plaintext == "list":
+    if plaintext in ["list", "列表"]:
         await help_cmd.finish(get_plugin_list())
-    elif plaintext == "tree":
+    elif plaintext in ["tree", "树"]:
         await help_cmd.finish(get_tree_view())
     elif plaintext:
         command_help = get_plugin_help(plaintext)

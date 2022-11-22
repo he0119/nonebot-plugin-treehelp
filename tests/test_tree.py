@@ -1,10 +1,8 @@
-import pytest
 from nonebug import App
 
 from .utils import make_fake_event, make_fake_message
 
 
-@pytest.mark.asyncio
 async def test_root(app: App):
     """测试帮助"""
     from nonebot import require
@@ -22,7 +20,6 @@ async def test_root(app: App):
         ctx.should_finished()
 
 
-@pytest.mark.asyncio
 async def test_sub_plugins(app: App):
     """测试帮助"""
     from nonebot import require
@@ -40,7 +37,6 @@ async def test_sub_plugins(app: App):
         ctx.should_finished()
 
 
-@pytest.mark.asyncio
 async def test_tree_view(app: App):
     """测试树形结构"""
     from nonebot import require

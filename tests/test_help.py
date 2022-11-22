@@ -1,9 +1,8 @@
-import pytest
 from nonebug import App
 
 from .utils import make_fake_event, make_fake_message
 
-# @pytest.mark.asyncio
+#
 # async def test_sort_commands(app: App):
 #     from nonebot_plugin_treehelp.data_source import sort_commands
 
@@ -32,7 +31,6 @@ from .utils import make_fake_event, make_fake_message
 #     ]
 
 
-@pytest.mark.asyncio
 async def test_help(app: App):
     """测试帮助"""
     from nonebot_plugin_treehelp import help_cmd
@@ -51,9 +49,8 @@ async def test_help(app: App):
         ctx.should_finished()
 
 
-@pytest.mark.asyncio
 async def test_help_list(app: App):
-    """测试帮助，查看所有插件"""
+    """测试查看所有插件"""
     from nonebot_plugin_treehelp import help_cmd
 
     async with app.test_matcher(help_cmd) as ctx:
@@ -66,9 +63,8 @@ async def test_help_list(app: App):
         ctx.should_finished()
 
 
-@pytest.mark.asyncio
 async def test_help_help(app: App):
-    """测试帮助，获取帮助插件帮助"""
+    """测试获取帮助插件帮助"""
     from nonebot_plugin_treehelp import help_cmd
 
     async with app.test_matcher(help_cmd) as ctx:
@@ -85,9 +81,8 @@ async def test_help_help(app: App):
         ctx.should_finished()
 
 
-@pytest.mark.asyncio
 async def test_help_not_found(app: App):
-    """测试帮助，插件不存在"""
+    """测试插件不存在"""
     from nonebot_plugin_treehelp import help_cmd
 
     async with app.test_matcher(help_cmd) as ctx:
