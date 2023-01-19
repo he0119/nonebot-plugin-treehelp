@@ -603,14 +603,14 @@ websockets = ["websockets (>=10.0,<11.0)"]
 
 [[package]]
 name = "nonebug"
-version = "0.2.2"
+version = "0.2.3"
 description = "nonebot2 test framework"
 category = "dev"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "nonebug-0.2.2-py3-none-any.whl", hash = "sha256:f1e83f342f7f75e845088bcd2c1bad1d97648282afb396634c94ac500d142ed3"},
-    {file = "nonebug-0.2.2.tar.gz", hash = "sha256:f67186d98ac42c0e01a135afc1a8c5805f0748f6c66efbd51f82e9a21dfc7769"},
+    {file = "nonebug-0.2.3-py3-none-any.whl", hash = "sha256:5c83bd885899b2857323fa19eff6bbc3f160729453b2f289d8305a99b7b95fc9"},
+    {file = "nonebug-0.2.3.tar.gz", hash = "sha256:3e59757b32b6b96cd8c36c4c9fd6050e611b1ffad058ec5fa82cba3f86495c61"},
 ]
 
 [package.dependencies]
