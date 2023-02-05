@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 ## [Unreleased]
 
+## [0.0.2] - 2023-02-06
+
 ### Added
 
+- 支持输出插件树
 - 支持通过设置 adapters 属性来指定支持的适配器
 
 ### Fixed
@@ -22,4 +25,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 - 可以使用的版本。
 
 [unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.1...HEAD
+[0.0.2]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/he0119/nonebot-plugin-treehelp/releases/tag/v0.0.1
