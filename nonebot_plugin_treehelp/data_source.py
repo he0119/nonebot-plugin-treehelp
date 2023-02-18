@@ -159,8 +159,9 @@ def get_tree_view(bot: "Bot") -> str:
         for plugin in get_plugins().values()
         if plugin.parent_plugin is None and is_supported_adapter(plugin, bot)
     }
+    sorted_plugins = sorted(plugins, key=lambda x: x.metadata.name)  # type: ignore
     docs = []
-    for plugin in plugins:
+    for plugin in sorted_plugins:
         docs.append(f"{plugin.metadata.name} # {plugin.metadata.description}")  # type: ignore
         get_tree_string(docs, plugin.sub_plugins, "", bot)
     return "\n".join(docs)
