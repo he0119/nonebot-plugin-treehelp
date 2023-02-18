@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 ## [Unreleased]
 
+## [0.0.3] - 2023-02-18
+
 ### Changed
 
 - 美化插件树的显示
@@ -29,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 - 可以使用的版本。
 
-[unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.1...HEAD
+[unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.3...HEAD
+[0.0.3]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/he0119/nonebot-plugin-treehelp/releases/tag/v0.0.1
