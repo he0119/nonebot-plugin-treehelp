@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 ### Changed
 
 - 美化插件树的显示
+- 使用 shell_command 处理命令
 
 ## [0.0.2] - 2023-02-06
 
