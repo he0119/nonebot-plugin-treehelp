@@ -2,7 +2,6 @@
 
 获取插件的帮助信息，并通过子插件的形式获取次级菜单
 """
-from textwrap import indent
 from typing import TYPE_CHECKING, Dict, List, Optional, Set
 
 from nonebot import get_loaded_plugins
@@ -129,20 +128,28 @@ def get_plugin_help(name: str, bot: "Bot") -> Optional[str]:
     return "\n\n".join([x for x in [name, usage, sub_plugins_desc] if x])
 
 
-def get_tree_string(plugins: Set["Plugin"], bot: "Bot") -> str:
+def get_tree_string(
+    docs: List[str],
+    plugins: Set["Plugin"],
+    previous_tree_bar: str,
+    bot: "Bot",
+) -> None:
     """通过递归获取树形结构的字符串"""
+    previous_tree_bar = previous_tree_bar.replace("├", "│")
+
     filtered_plugins = filter(
         lambda x: x.metadata is not None and is_supported_adapter(x, bot), plugins
     )
     sorted_plugins = sorted(filtered_plugins, key=lambda x: x.metadata.name)  # type: ignore
 
-    docs = []
-    for plugin in sorted_plugins:
-        docs.append(f"{plugin.metadata.name} # {plugin.metadata.description}")  # type: ignore
-        sub = get_tree_string(plugin.sub_plugins, bot)
-        if sub:
-            docs.append(indent(sub, "--"))
-    return "\n".join(docs)
+    tree_bar = previous_tree_bar + "├"
+    total = len(sorted_plugins)
+    for i, plugin in enumerate(sorted_plugins, 1):
+        if i == total:
+            tree_bar = previous_tree_bar + "└"
+        docs.append(f"{tree_bar}── {plugin.metadata.name} # {plugin.metadata.description}")  # type: ignore
+        tree_bar = tree_bar.replace("└", " ")
+        get_tree_string(docs, plugin.sub_plugins, tree_bar + "   ", bot)
 
 
 def get_tree_view(bot: "Bot") -> str:
@@ -152,5 +159,9 @@ def get_tree_view(bot: "Bot") -> str:
         for plugin in get_plugins().values()
         if plugin.parent_plugin is None and is_supported_adapter(plugin, bot)
     }
-    docs = get_tree_string(plugins, bot)
-    return docs
+    sorted_plugins = sorted(plugins, key=lambda x: x.metadata.name)  # type: ignore
+    docs = []
+    for plugin in sorted_plugins:
+        docs.append(f"{plugin.metadata.name} # {plugin.metadata.description}")  # type: ignore
+        get_tree_string(docs, plugin.sub_plugins, "", bot)
+    return "\n".join(docs)

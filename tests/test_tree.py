@@ -52,7 +52,7 @@ async def test_tree_view(app: App):
         ctx.receive_event(bot, event)
         ctx.should_call_send(
             event,
-            "帮助 # 获取插件帮助信息\n测试 # 一个测试插件\n--复杂功能 # 测试插件复杂子插件\n----二级功能 # 测试插件二级插件\n--简单功能 # 测试插件简单子插件",
+            "帮助 # 获取插件帮助信息\n测试 # 一个测试插件\n├── 复杂功能 # 测试插件复杂子插件\n│   └── 二级功能 # 测试插件二级插件\n└── 简单功能 # 测试插件简单子插件",
             True,
         )
         ctx.should_finished()
