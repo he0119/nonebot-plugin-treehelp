@@ -100,7 +100,7 @@ def get_plugin_list(bot: "Bot", tree: bool = False) -> str:
     ]
     sorted_plugins = sorted(plugins, key=lambda x: x.metadata.name)  # type: ignore
 
-    docs = ["插件列表："]
+    docs = ["插件："]
     if tree:
         for plugin in sorted_plugins:
             docs.append(f"{plugin.metadata.name} # {plugin.metadata.description}")  # type: ignore

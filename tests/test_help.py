@@ -55,11 +55,11 @@ async def test_help_list(app: App):
 
     async with app.test_matcher(help_cmd) as ctx:
         bot = ctx.create_bot()
-        message = message = make_fake_message()("/help list")
+        message = message = make_fake_message()("/help --list")
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(event, "插件列表：\n帮助 # 获取插件帮助信息", True)
+        ctx.should_call_send(event, "插件：\n帮助 # 获取插件帮助信息", True)
         ctx.should_finished()
 
 
@@ -91,5 +91,5 @@ async def test_help_not_found(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(event, "请输入支持的插件名", True)
+        ctx.should_call_send(event, "未找到插件 test", True)
         ctx.should_finished()
