@@ -871,20 +871,20 @@ files = [
 
 [[package]]
 name = "nb-cli"
-version = "1.0.4"
+version = "1.0.5"
 description = "CLI for nonebot2"
 category = "dev"
 optional = false
 python-versions = ">=3.8, <4.0"
 files = [
-    {file = "nb-cli-1.0.4.tar.gz", hash = "sha256:f196967be533a2e46fd0b4dca51a4df7dbf65018f63c66be706b9fdaf8b6b854"},
-    {file = "nb_cli-1.0.4-py3-none-any.whl", hash = "sha256:44a0c289e2c77dd57d18731d083b739158f11ea3d2315bda9111d076185ca3b2"},
+    {file = "nb-cli-1.0.5.tar.gz", hash = "sha256:9c52c5d091a4f11e139c30605a06674cc1dcbdc5e8f93bd0d32f85146184bd15"},
+    {file = "nb_cli-1.0.5-py3-none-any.whl", hash = "sha256:95bdf66db70eff41e69d84f550cd9d0b9bab4f39cb4544eeb4d6f809d06d1515"},
 ]
 
 [package.dependencies]
 anyio = ">=3.6,<4.0"
 cashews = ">=5.0,<6.0"
-click = ">=8.0,<9.0"
+click = ">=8.1,<9.0"
 cookiecutter = ">=2.1,<3.0"
 httpx = ">=0.18,<1.0"
 importlib-metadata = {version = ">=4.6", markers = "python_version < \"3.10\""}
@@ -1620,6 +1620,7 @@ category = "dev"
 optional = false
 python-versions = "*"
 files = [
+    {file = "wcwidth-0.2.6-py2.py3-none-any.whl", hash = "sha256:795b138f6875577cd91bba52baf9e445cd5118fd32723b460e30a0af30ea230e"},
     {file = "wcwidth-0.2.6.tar.gz", hash = "sha256:a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"},
 ]
 
