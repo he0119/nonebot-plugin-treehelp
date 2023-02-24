@@ -21,7 +21,7 @@ nonebot-adapter-console = "^0.3.2"
 nb-cli = "^1.0.4"
 
 [tool.poetry.group.test.dependencies]
-nonebug = "^0.2.2"
+nonebug = "^0.3.1"
 pytest-cov = "^4.0.0"
 pytest-xdist = "^3.0.2"
 pytest-mock = "^3.10.0"
