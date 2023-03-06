@@ -29,7 +29,7 @@ def map_command_to_plguin(plugin: "Plugin"):
             None,
         )
         if not command_handler:
-            return
+            continue
 
         command = cast(Union[CommandRule, ShellCommandRule], command_handler.call)
 
