@@ -2,34 +2,6 @@ from nonebug import App
 
 from .utils import make_fake_event, make_fake_message
 
-#
-# async def test_sort_commands(app: App):
-#     from nonebot_plugin_treehelp.data_source import sort_commands
-
-#     cmds = [
-#         ("ff14", "nuannuan"),
-#         ("时尚品鉴",),
-#         ("最终幻想14", "时尚品鉴"),
-#         ("nuannuan",),
-#     ]
-#     assert sort_commands(cmds) == [
-#         ("ff14", "nuannuan"),
-#         ("nuannuan",),
-#         ("最终幻想14", "时尚品鉴"),
-#         ("时尚品鉴",),
-#     ]
-
-#     cmds = [
-#         ("时尚品鉴",),
-#         ("最终幻想14", "时尚品鉴"),
-#         ("nuannuan",),
-#     ]
-#     assert sort_commands(cmds) == [
-#         ("nuannuan",),
-#         ("最终幻想14", "时尚品鉴"),
-#         ("时尚品鉴",),
-#     ]
-
 
 async def test_help(app: App):
     """测试帮助"""
@@ -110,4 +82,48 @@ async def test_help_command_error(app: App):
             "usage: 帮助 [-h] [-l] [-t] [插件名]\n帮助: error: unrecognized arguments: --test\n",
             True,
         )
+        ctx.should_finished()
+
+
+async def test_help_by_command(app: App):
+    """测试通过命令获取帮助信息"""
+    from nonebot import require
+
+    require("tests.plugins.tree")
+    from nonebot_plugin_treehelp import help_cmd
+
+    async with app.test_matcher(help_cmd) as ctx:
+        bot = ctx.create_bot()
+        message = message = make_fake_message()("/help simple")
+        event = make_fake_event(_message=message)()
+
+        ctx.receive_event(bot, event)
+        ctx.should_call_send(event, "简单功能\n\n/简单功能", True)
+        ctx.should_finished()
+
+    async with app.test_matcher(help_cmd) as ctx:
+        bot = ctx.create_bot()
+        message = message = make_fake_message()("/help simple.alias")
+        event = make_fake_event(_message=message)()
+
+        ctx.receive_event(bot, event)
+        ctx.should_call_send(event, "简单功能\n\n/简单功能", True)
+        ctx.should_finished()
+
+    async with app.test_matcher(help_cmd) as ctx:
+        bot = ctx.create_bot()
+        message = message = make_fake_message()("/help sub")
+        event = make_fake_event(_message=message)()
+
+        ctx.receive_event(bot, event)
+        ctx.should_call_send(event, "复杂功能\n\n/复杂功能\n\n二级功能 # 测试插件二级插件", True)
+        ctx.should_finished()
+
+    async with app.test_matcher(help_cmd) as ctx:
+        bot = ctx.create_bot()
+        message = message = make_fake_message()("/help sub.alias")
+        event = make_fake_event(_message=message)()
+
+        ctx.receive_event(bot, event)
+        ctx.should_call_send(event, "复杂功能\n\n/复杂功能\n\n二级功能 # 测试插件二级插件", True)
         ctx.should_finished()
