@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot-plugin-treehelp"
-version = "0.0.3"
+version = "0.0.4"
 description = "适用于 Nonebot2 的树形帮助插件"
 authors = ["hemengyang <hmy0119@gmail.com>"]
 license = "MIT"
@@ -43,7 +43,9 @@ pythonVersion = "3.8"
 pythonPlatform = "All"
 
 [tool.nonebot]
-adapters = [{name = "Console", module_name = "nonebot.adapters.console", project_link = "nonebot-adapter-console", desc = "基于终端的交互式适配器"}]
+adapters = [
+  { name = "Console", module_name = "nonebot.adapters.console", project_link = "nonebot-adapter-console", desc = "基于终端的交互式适配器" },
+]
 plugins = ["nonebot_plugin_treehelp", "tests.plugins.tree"]
 
 [build-system]
