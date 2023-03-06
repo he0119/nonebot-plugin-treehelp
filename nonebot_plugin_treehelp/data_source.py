@@ -2,57 +2,39 @@
 
 获取插件的帮助信息，并通过子插件的形式获取次级菜单
 """
-from typing import TYPE_CHECKING, Dict, List, Optional, Set
+from typing import TYPE_CHECKING, Dict, List, Optional, Set, Tuple, Union, cast
 
-from nonebot import get_loaded_plugins
+from nonebot import get_driver, get_loaded_plugins
+from nonebot.rule import CommandRule, ShellCommandRule
 
 if TYPE_CHECKING:
     from nonebot.adapters import Bot
-    from nonebot.plugin import Plugin
+    from nonebot.plugin import Plugin, PluginMetadata
+
+global_config = get_driver().config
 
 _plugins: Optional[Dict[str, "Plugin"]] = None
+_commands: Dict[Tuple[str, ...], "Plugin"] = {}
 
 
-# def sort_commands(cmds: list[tuple[str, ...]]) -> list[tuple[str, ...]]:
-#     """排序命令
+def map_command_to_plguin(plugin: "Plugin"):
+    """建立命令与插件的映射"""
+    matchers = plugin.matcher
+    for matcher in matchers:
+        checkers = matcher.rule.checkers
+        command_handler = next(
+            filter(
+                lambda x: isinstance(x.call, (CommandRule, ShellCommandRule)), checkers
+            ),
+            None,
+        )
+        if not command_handler:
+            continue
 
-#     确保英文名字在前，中文名字在后
-#     命令越长越靠前
-#     """
-#     return sorted(
-#         cmds,
-#         key=lambda x: (
-#             len("".join(x).encode("ascii", "ignore")),  # 英文在前
-#             len(x),  # 命令越长越靠前
-#             len("".join(x)),  # 命令字数越长越靠前
-#         ),
-#         reverse=True,
-#     )
+        command = cast(Union[CommandRule, ShellCommandRule], command_handler.call)
 
-
-# def extract_command_info(matcher: "Matcher") -> Optional[CommandInfo]:
-#     """从 Matcher 中提取命令的数据"""
-#     checkers = matcher.rule.checkers
-#     command_handler = next(
-#         filter(lambda x: isinstance(x.call, CommandRule), checkers), None
-#     )
-#     if not command_handler:
-#         return
-
-#     help = matcher.__doc__
-#     if help is None:
-#         return
-#     help = inspect.cleandoc(help)
-
-#     command = cast(CommandRule, command_handler.call)
-#     cmds = sort_commands(command.cmds)
-
-#     name = ".".join(cmds[0])
-#     if len(cmds) > 1:
-#         aliases = list(map(lambda x: ".".join(x), cmds[1:]))
-#     else:
-#         aliases = []
-#     return CommandInfo(name=name, aliases=aliases, help=help)
+        for cmd in command.cmds:
+            _commands[cmd] = plugin
 
 
 def format_description(plugins: List["Plugin"]) -> str:
@@ -86,6 +68,8 @@ def get_plugins() -> Dict[str, "Plugin"]:
     if _plugins is None:
         plugins = filter(lambda x: x.metadata is not None, get_loaded_plugins())
         _plugins = {x.metadata.name: x for x in plugins}  # type: ignore
+        for plugin in _plugins.values():
+            map_command_to_plguin(plugin)
 
     return _plugins
 
@@ -116,25 +100,31 @@ def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
 
     plugin = plugins.get(name)
     if not plugin:
+        command = name.split("".join(global_config.command_sep))
+        plugin = _commands.get(tuple(command))
+    if not plugin:
         return
 
     # 排除不支持的插件
     if not is_supported_adapter(bot, plugin):
         return
 
+    metadata = cast("PluginMetadata", plugin.metadata)
+
     if tree:
-        docs = [f"{plugin.metadata.name} # {plugin.metadata.description}"]  # type: ignore
+        docs = [f"{metadata.name} # {metadata.description}"]
         get_tree_string(bot, docs, plugin.sub_plugins, "")
         return "\n".join(docs)
 
-    usage = plugin.metadata.usage  # type: ignore
     sub_plugins = [
         plugin
         for plugin in plugin.sub_plugins
         if plugin.metadata is not None and is_supported_adapter(bot, plugin)
     ]
     sub_plugins_desc = format_description(sub_plugins)
-    return "\n\n".join([x for x in [name, usage, sub_plugins_desc] if x])
+    return "\n\n".join(
+        [x for x in [metadata.name, metadata.usage, sub_plugins_desc] if x]
+    )
 
 
 def get_tree_string(

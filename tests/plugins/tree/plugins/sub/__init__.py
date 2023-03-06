@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import nonebot
+from nonebot import on_shell_command
 from nonebot.plugin import PluginMetadata
 
 __plugin_meta__ = PluginMetadata(
@@ -11,3 +12,5 @@ __plugin_meta__ = PluginMetadata(
 
 _sub_plugins = set()
 _sub_plugins |= nonebot.load_plugins(str((Path(__file__).parent / "subsub").resolve()))
+
+sub = on_shell_command("sub", aliases={("sub", "alias")})
