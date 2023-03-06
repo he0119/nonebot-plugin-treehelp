@@ -1,4 +1,4 @@
-from nonebot import on_command
+from nonebot import on_command, on_message
 from nonebot.plugin import PluginMetadata
 
 __plugin_meta__ = PluginMetadata(
@@ -8,3 +8,5 @@ __plugin_meta__ = PluginMetadata(
 )
 
 simple = on_command("simple", aliases={("simple", "alias")}, priority=1, block=True)
+
+simple_message = on_message()
