@@ -100,8 +100,12 @@ def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
 
     plugin = plugins.get(name)
     if not plugin:
-        command = name.split("".join(global_config.command_sep))
-        plugin = _commands.get(tuple(command))
+        # str.split 只支持单个分隔符
+        # 用 re 又太麻烦了，直接遍历所有分隔符，找到就停止
+        for sep in global_config.command_sep:
+            plugin = _commands.get(tuple(name.split(sep)))
+            if plugin:
+                break
     if not plugin:
         return
 
