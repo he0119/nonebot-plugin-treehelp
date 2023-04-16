@@ -13,11 +13,7 @@ async def test_help(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(
-            event,
-            f"帮助\n\n{__plugin_meta__.usage}",
-            True,
-        )
+        ctx.should_call_send(event, f"插件：\n帮助 # 获取插件帮助信息", True)
         ctx.should_finished()
 
 

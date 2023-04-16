@@ -39,10 +39,7 @@ async def help_handle(bot: Bot, args: Namespace = ShellCommandArgs()):
     plugin_name = args.plugin_name
 
     if plugin_name is None:
-        if args.list or args.tree:
-            await help_cmd.finish(get_plugin_list(bot, args.tree))
-        else:
-            plugin_name = "帮助"
+        await help_cmd.finish(get_plugin_list(bot, args.tree))
 
     plugin_help = get_plugin_help(bot, plugin_name, args.tree)
     if plugin_help:
