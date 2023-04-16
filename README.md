@@ -49,7 +49,24 @@ _✨ NoneBot 树形帮助插件 ✨_
 
 加载插件后发送 `/help help` 或 `/help --help` 获取具体用法。
 
+## 插件适配
+
 插件与子插件写法可参考 [示例插件](./tests/plugins/tree/)。
+
+### 声明适配器
+
+通过设置 adapters 属性来指定支持的适配器。如果不设置或留空则默认支持全部适配器。如果插件不支持该适配器，则不会在帮助列表上显示。
+
+```python
+__plugin_meta__ = PluginMetadata(
+    name="OneBot",
+    description="测试 OneBot 适配器",
+    usage="/onebot",
+    extra={
+        "adapters": ["OneBot V11"],
+    },
+)
+```
 
 ## 配置项
 
