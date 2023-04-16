@@ -15,8 +15,7 @@ __plugin_meta__ = PluginMetadata(
     name="帮助",
     description="获取插件帮助信息",
     usage="""获取插件列表
-/help -l
-/help --list
+/help
 获取插件树
 /help -t
 /help --tree
