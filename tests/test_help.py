@@ -13,25 +13,7 @@ async def test_help(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(
-            event,
-            f"帮助\n\n{__plugin_meta__.usage}",
-            True,
-        )
-        ctx.should_finished()
-
-
-async def test_help_list(app: App):
-    """测试查看所有插件"""
-    from nonebot_plugin_treehelp import help_cmd
-
-    async with app.test_matcher(help_cmd) as ctx:
-        bot = ctx.create_bot()
-        message = message = make_fake_message()("/help --list")
-        event = make_fake_event(_message=message)()
-
-        ctx.receive_event(bot, event)
-        ctx.should_call_send(event, "插件：\n帮助 # 获取插件帮助信息", True)
+        ctx.should_call_send(event, f"插件：\n帮助 # 获取插件帮助信息", True)
         ctx.should_finished()
 
 
@@ -79,7 +61,7 @@ async def test_help_command_error(app: App):
         ctx.receive_event(bot, event)
         ctx.should_call_send(
             event,
-            "usage: 帮助 [-h] [-l] [-t] [插件名]\n帮助: error: unrecognized arguments: --test\n",
+            "usage: 帮助 [-h] [-t] [插件名]\n帮助: error: unrecognized arguments: --test\n",
             True,
         )
         ctx.should_finished()

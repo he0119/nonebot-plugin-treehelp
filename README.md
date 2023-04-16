@@ -47,7 +47,7 @@ _✨ NoneBot 树形帮助插件 ✨_
 
 ## 使用方式
 
-加载插件后发送 `/help` 或 `/help --help` 获取具体用法。
+加载插件后发送 `/help help` 或 `/help --help` 获取具体用法。
 
 插件与子插件写法可参考 [示例插件](./tests/plugins/tree/)。
 

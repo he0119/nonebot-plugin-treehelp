@@ -9,7 +9,10 @@
       "type": "python",
       "request": "launch",
       "module": "nb_cli",
-      "args": ["run"],
+      "args": [
+        "run",
+        "--reload"
+      ],
       "justMyCode": false
     },
     {
