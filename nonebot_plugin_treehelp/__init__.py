@@ -29,7 +29,6 @@ __plugin_meta__ = PluginMetadata(
 
 parser = ArgumentParser("帮助", description="获取插件帮助信息")
 parser.add_argument("plugin_name", nargs="?", type=str, help="插件名", metavar="插件名")
-parser.add_argument("-l", "--list", action="store_true", help="获取插件列表")
 parser.add_argument("-t", "--tree", action="store_true", help="获取插件树")
 help_cmd = on_shell_command("help", aliases={"帮助"}, parser=parser)
 

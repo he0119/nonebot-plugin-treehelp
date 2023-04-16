@@ -12,7 +12,7 @@ async def test_root(app: App):
 
     async with app.test_matcher(help_cmd) as ctx:
         bot = ctx.create_bot()
-        message = message = make_fake_message()("/help --list")
+        message = message = make_fake_message()("/help")
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
