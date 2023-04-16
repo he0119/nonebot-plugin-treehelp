@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 ## [Unreleased]
 
+## [0.1.0] - 2023-04-16
+
 ### Changed
 
 - 发送 /help 默认显示 /help -l 的内容
@@ -47,7 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 - 可以使用的版本。
 
-[unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.5...HEAD
+[unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.5...v0.1.0
 [0.0.5]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.2...v0.0.3
