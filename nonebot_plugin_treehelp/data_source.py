@@ -51,14 +51,21 @@ def format_description(plugins: List["Plugin"]) -> str:
 
 def is_supported_adapter(bot: "Bot", plugin: "Plugin") -> bool:
     """是否是支持的适配器"""
-    supported_adapters = plugin.metadata.extra.get("adapters")  # type: ignore
-    if (
-        supported_adapters  # 拥有 adapters 信息
-        and isinstance(supported_adapters, (set, list))  # 并且是集合或列表
-        and bot.adapter.get_name() not in supported_adapters  # 且当前适配器名不在集合中
-    ):
+    if plugin.metadata is None:
         return False
-    return True
+
+    if plugin.metadata.supported_adapters is None:
+        return True
+
+    supported_adapters = plugin.metadata.get_supported_adapters()
+    if supported_adapters is None:
+        return False
+
+    for adapter in supported_adapters:
+        if isinstance(bot.adapter, adapter):
+            return True
+
+    return False
 
 
 def get_plugins() -> Dict[str, "Plugin"]:
