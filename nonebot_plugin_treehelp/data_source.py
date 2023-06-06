@@ -68,6 +68,36 @@ def is_supported_adapter(bot: "Bot", plugin: "Plugin") -> bool:
     return False
 
 
+def is_supported_type(metadata: "PluginMetadata") -> bool:
+    """是否是支持的插件类型
+
+    当前有 library 和 application 两种类型
+    仅支持 application 类型的插件
+    """
+    type_ = metadata.type
+    # 如果没有指定类型，则默认支持
+    if type_ is None:
+        return True
+    # 当前仅支持 application 类型
+    if type_ == "application":
+        return True
+    return False
+
+
+def is_supported(bot: "Bot", plugin: "Plugin") -> bool:
+    """是否是支持的插件"""
+    if plugin.metadata is None:
+        return False
+
+    if not is_supported_type(plugin.metadata):
+        return False
+
+    if not is_supported_adapter(bot, plugin):
+        return False
+
+    return True
+
+
 def get_plugins() -> Dict[str, "Plugin"]:
     """获取适配了元信息的插件"""
     global _plugins
@@ -87,7 +117,7 @@ def get_plugin_list(bot: "Bot", tree: bool = False) -> str:
     plugins = [
         plugin
         for plugin in get_plugins().values()
-        if plugin.parent_plugin is None and is_supported_adapter(bot, plugin)
+        if plugin.parent_plugin is None and is_supported(bot, plugin)
     ]
     sorted_plugins = sorted(plugins, key=lambda x: x.metadata.name)  # type: ignore
 
@@ -117,7 +147,7 @@ def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
         return
 
     # 排除不支持的插件
-    if not is_supported_adapter(bot, plugin):
+    if not is_supported(bot, plugin):
         return
 
     metadata = cast("PluginMetadata", plugin.metadata)
@@ -130,7 +160,7 @@ def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
     sub_plugins = [
         plugin
         for plugin in plugin.sub_plugins
-        if plugin.metadata is not None and is_supported_adapter(bot, plugin)
+        if plugin.metadata is not None and is_supported(bot, plugin)
     ]
     sub_plugins_desc = format_description(sub_plugins)
     return "\n\n".join(
@@ -148,7 +178,7 @@ def get_tree_string(
     previous_tree_bar = previous_tree_bar.replace("├", "│")
 
     filtered_plugins = filter(
-        lambda x: x.metadata is not None and is_supported_adapter(bot, x), plugins
+        lambda x: x.metadata is not None and is_supported(bot, x), plugins
     )
     sorted_plugins = sorted(filtered_plugins, key=lambda x: x.metadata.name)  # type: ignore
 

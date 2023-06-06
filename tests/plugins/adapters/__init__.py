@@ -7,6 +7,7 @@ __plugin_meta__ = PluginMetadata(
     name="适配器",
     description="测试不同适配器",
     usage="",
+    type="application",
 )
 
 _sub_plugins = set()
