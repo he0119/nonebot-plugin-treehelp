@@ -49,16 +49,13 @@ def format_description(plugins: List["Plugin"]) -> str:
     )
 
 
-def is_supported_adapter(bot: "Bot", plugin: "Plugin") -> bool:
+def is_supported_adapter(bot: "Bot", metadata: "PluginMetadata") -> bool:
     """是否是支持的适配器"""
-    if plugin.metadata is None:
-        return False
-
-    if plugin.metadata.supported_adapters is None:
+    if metadata.supported_adapters is None:
         return True
 
-    supported_adapters = plugin.metadata.get_supported_adapters()
-    if supported_adapters is None:
+    supported_adapters = metadata.get_supported_adapters()
+    if not supported_adapters:
         return False
 
     for adapter in supported_adapters:
@@ -92,7 +89,7 @@ def is_supported(bot: "Bot", plugin: "Plugin") -> bool:
     if not is_supported_type(plugin.metadata):
         return False
 
-    if not is_supported_adapter(bot, plugin):
+    if not is_supported_adapter(bot, plugin.metadata):
         return False
 
     return True
@@ -157,11 +154,7 @@ def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
         get_tree_string(bot, docs, plugin.sub_plugins, "")
         return "\n".join(docs)
 
-    sub_plugins = [
-        plugin
-        for plugin in plugin.sub_plugins
-        if plugin.metadata is not None and is_supported(bot, plugin)
-    ]
+    sub_plugins = [plugin for plugin in plugin.sub_plugins if is_supported(bot, plugin)]
     sub_plugins_desc = format_description(sub_plugins)
     return "\n\n".join(
         [x for x in [metadata.name, metadata.usage, sub_plugins_desc] if x]
@@ -177,9 +170,7 @@ def get_tree_string(
     """通过递归获取树形结构的字符串"""
     previous_tree_bar = previous_tree_bar.replace("├", "│")
 
-    filtered_plugins = filter(
-        lambda x: x.metadata is not None and is_supported(bot, x), plugins
-    )
+    filtered_plugins = filter(lambda x: is_supported(bot, x), plugins)
     sorted_plugins = sorted(filtered_plugins, key=lambda x: x.metadata.name)  # type: ignore
 
     tree_bar = previous_tree_bar + "├"

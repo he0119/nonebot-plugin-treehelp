@@ -52,11 +52,11 @@ async def test_adapters_supported_plugin(app: App):
 
     async with app.test_matcher(help_cmd) as ctx:
         bot = ctx.create_bot(adapter=adapter)
-        message = message = make_fake_message()("/help Console")
+        message = message = make_fake_message()("/help 适配器")
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(event, "Console\n\n/console", True)
+        ctx.should_call_send(event, "适配器\n\nConsole # 测试 Console 适配器", True)
         ctx.should_finished()
 
 
