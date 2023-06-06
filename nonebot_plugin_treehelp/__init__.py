@@ -24,6 +24,8 @@ __plugin_meta__ = PluginMetadata(
 获取某个插件的树
 /help --tree 插件名
 """,
+    type="application",
+    homepage="https://github.com/he0119/nonebot-plugin-treehelp",
 )
 
 parser = ArgumentParser("帮助", description="获取插件帮助信息")

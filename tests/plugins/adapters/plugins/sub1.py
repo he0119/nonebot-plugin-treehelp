@@ -4,7 +4,5 @@ __plugin_meta__ = PluginMetadata(
     name="OneBot",
     description="测试 OneBot 适配器",
     usage="/onebot",
-    extra={
-        "adapters": ["OneBot"],
-    },
+    supported_adapters={"~onebot.v11", "~onebot.v12"},
 )

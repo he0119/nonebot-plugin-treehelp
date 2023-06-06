@@ -49,15 +49,49 @@ def format_description(plugins: List["Plugin"]) -> str:
     )
 
 
-def is_supported_adapter(bot: "Bot", plugin: "Plugin") -> bool:
+def is_supported_adapter(bot: "Bot", metadata: "PluginMetadata") -> bool:
     """是否是支持的适配器"""
-    supported_adapters = plugin.metadata.extra.get("adapters")  # type: ignore
-    if (
-        supported_adapters  # 拥有 adapters 信息
-        and isinstance(supported_adapters, (set, list))  # 并且是集合或列表
-        and bot.adapter.get_name() not in supported_adapters  # 且当前适配器名不在集合中
-    ):
+    if metadata.supported_adapters is None:
+        return True
+
+    supported_adapters = metadata.get_supported_adapters()
+    if not supported_adapters:
         return False
+
+    for adapter in supported_adapters:
+        if isinstance(bot.adapter, adapter):
+            return True
+
+    return False
+
+
+def is_supported_type(metadata: "PluginMetadata") -> bool:
+    """是否是支持的插件类型
+
+    当前有 library 和 application 两种类型
+    仅支持 application 类型的插件
+    """
+    type_ = metadata.type
+    # 如果没有指定类型，则默认支持
+    if type_ is None:
+        return True
+    # 当前仅支持 application 类型
+    if type_ == "application":
+        return True
+    return False
+
+
+def is_supported(bot: "Bot", plugin: "Plugin") -> bool:
+    """是否是支持的插件"""
+    if plugin.metadata is None:
+        return False
+
+    if not is_supported_type(plugin.metadata):
+        return False
+
+    if not is_supported_adapter(bot, plugin.metadata):
+        return False
+
     return True
 
 
@@ -80,7 +114,7 @@ def get_plugin_list(bot: "Bot", tree: bool = False) -> str:
     plugins = [
         plugin
         for plugin in get_plugins().values()
-        if plugin.parent_plugin is None and is_supported_adapter(bot, plugin)
+        if plugin.parent_plugin is None and is_supported(bot, plugin)
     ]
     sorted_plugins = sorted(plugins, key=lambda x: x.metadata.name)  # type: ignore
 
@@ -110,7 +144,7 @@ def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
         return
 
     # 排除不支持的插件
-    if not is_supported_adapter(bot, plugin):
+    if not is_supported(bot, plugin):
         return
 
     metadata = cast("PluginMetadata", plugin.metadata)
@@ -120,11 +154,7 @@ def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
         get_tree_string(bot, docs, plugin.sub_plugins, "")
         return "\n".join(docs)
 
-    sub_plugins = [
-        plugin
-        for plugin in plugin.sub_plugins
-        if plugin.metadata is not None and is_supported_adapter(bot, plugin)
-    ]
+    sub_plugins = [plugin for plugin in plugin.sub_plugins if is_supported(bot, plugin)]
     sub_plugins_desc = format_description(sub_plugins)
     return "\n\n".join(
         [x for x in [metadata.name, metadata.usage, sub_plugins_desc] if x]
@@ -140,9 +170,7 @@ def get_tree_string(
     """通过递归获取树形结构的字符串"""
     previous_tree_bar = previous_tree_bar.replace("├", "│")
 
-    filtered_plugins = filter(
-        lambda x: x.metadata is not None and is_supported_adapter(bot, x), plugins
-    )
+    filtered_plugins = filter(lambda x: is_supported(bot, x), plugins)
     sorted_plugins = sorted(filtered_plugins, key=lambda x: x.metadata.name)  # type: ignore
 
     tree_bar = previous_tree_bar + "├"
