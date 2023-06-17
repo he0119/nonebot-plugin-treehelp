@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 ## [Unreleased]
 
+## [0.3.0] - 2023-06-17
+
 ### Added
 
 - 通过插件名称忽略指定插件
@@ -59,7 +61,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 - 可以使用的版本。
 
-[unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.2.0...HEAD
+[unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.5...v0.1.0
 [0.0.5]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.0.4...v0.0.5
