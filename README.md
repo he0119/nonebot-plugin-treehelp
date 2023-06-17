@@ -62,9 +62,8 @@ __plugin_meta__ = PluginMetadata(
     name="OneBot",
     description="测试 OneBot 适配器",
     usage="/onebot",
-    extra={
-        "adapters": ["OneBot V11"],
-    },
+    type="application",
+    supported_adapters={"~onebot.v11", "~onebot.v12"},
 )
 ```
 
@@ -72,7 +71,11 @@ __plugin_meta__ = PluginMetadata(
 
 配置方式：直接在 `NoneBot` 全局配置文件中添加以下配置项即可。
 
-暂时还没有可配置的东西。
+### treehelp_ignored_plugins
+
+- 类型: `list[str]`
+- 默认: `[]`
+- 说明: 需要忽略的插件名称列表
 
 ## 计划
 

@@ -9,6 +9,7 @@ from nonebot.params import ShellCommandArgs
 from nonebot.plugin import PluginMetadata
 from nonebot.rule import ArgumentParser, Namespace
 
+from .config import Config
 from .data_source import get_plugin_help, get_plugin_list
 
 __plugin_meta__ = PluginMetadata(
@@ -26,6 +27,7 @@ __plugin_meta__ = PluginMetadata(
 """,
     type="application",
     homepage="https://github.com/he0119/nonebot-plugin-treehelp",
+    config=Config,
 )
 
 parser = ArgumentParser("帮助", description="获取插件帮助信息")
