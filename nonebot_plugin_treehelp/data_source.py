@@ -7,6 +7,8 @@ from typing import TYPE_CHECKING, Dict, List, Optional, Set, Tuple, Union, cast
 from nonebot import get_driver, get_loaded_plugins
 from nonebot.rule import CommandRule, ShellCommandRule
 
+from .config import plugin_config
+
 if TYPE_CHECKING:
     from nonebot.adapters import Bot
     from nonebot.plugin import Plugin, PluginMetadata
@@ -84,6 +86,9 @@ def is_supported_type(metadata: "PluginMetadata") -> bool:
 def is_supported(bot: "Bot", plugin: "Plugin") -> bool:
     """是否是支持的插件"""
     if plugin.metadata is None:
+        return False
+
+    if plugin.metadata.name in plugin_config.treehelp_ignored_plugins:
         return False
 
     if not is_supported_type(plugin.metadata):
