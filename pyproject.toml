@@ -41,6 +41,10 @@ pythonVersion = "3.8"
 pythonPlatform = "All"
 typeCheckingMode = "basic"
 
+[tool.ruff]
+select = ["E", "W", "F", "UP", "C", "T", "PYI", "Q"]
+ignore = ["E402", "E501", "C901", "UP037"]
+
 [tool.nonebot]
 adapters = [
   { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" },

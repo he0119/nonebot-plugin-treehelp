@@ -1,7 +1,6 @@
 import nonebot
 import pytest
 from nonebug import NONEBOT_INIT_KWARGS, App
-from nonebug.app import App
 
 from .utils import clear_plugins
 
