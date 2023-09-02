@@ -42,12 +42,7 @@ def map_command_to_plguin(plugin: "Plugin"):
 def format_description(plugins: List["Plugin"]) -> str:
     """格式化描述"""
     return "\n".join(
-        sorted(
-            map(
-                lambda x: f"{x.metadata.name} # {x.metadata.description}",  # type: ignore
-                plugins,
-            )
-        )
+        sorted(f"{x.metadata.name} # {x.metadata.description}" for x in plugins)
     )
 
 

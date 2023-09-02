@@ -5,7 +5,7 @@ from .utils import make_fake_event, make_fake_message
 
 async def test_help(app: App):
     """测试帮助"""
-    from nonebot_plugin_treehelp import __plugin_meta__, help_cmd
+    from nonebot_plugin_treehelp import help_cmd
 
     async with app.test_matcher(help_cmd) as ctx:
         bot = ctx.create_bot()
@@ -13,7 +13,7 @@ async def test_help(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(event, f"插件：\n帮助 # 获取插件帮助信息", True)
+        ctx.should_call_send(event, "插件：\n帮助 # 获取插件帮助信息", True)
         ctx.should_finished()
 
 
