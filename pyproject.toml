@@ -14,11 +14,8 @@ python = "^3.8"
 nonebot2 = "^2.0.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "*"
-isort = "*"
-pre-commit = "*"
 nb-cli = "^1.0.4"
-nonebot-adapter-console = "^0.3.2"
+nonebot-adapter-console = "^0.4.0"
 nonebot-adapter-onebot = "^2.2.3"
 
 [tool.poetry.group.test.dependencies]
@@ -45,7 +42,7 @@ pythonPlatform = "All"
 
 [tool.nonebot]
 adapters = [
-  { name = "Console", module_name = "nonebot.adapters.console", project_link = "nonebot-adapter-console", desc = "基于终端的交互式适配器" },
+  { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" },
 ]
 plugins = ["nonebot_plugin_treehelp", "tests.plugins.tree"]
 
