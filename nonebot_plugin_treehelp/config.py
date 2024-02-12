@@ -1,13 +1,13 @@
 """ 配置 """
 from typing import List
 
-from nonebot import get_driver
-from pydantic import BaseModel, Extra
+from nonebot import get_plugin_config
+from pydantic import BaseModel
 
 
-class Config(BaseModel, extra=Extra.ignore):
+class Config(BaseModel):
     treehelp_ignored_plugins: List[str] = []
     """需要忽略的插件"""
 
 
-plugin_config = Config.parse_obj(get_driver().config)
+plugin_config = get_plugin_config(Config)
