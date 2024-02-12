@@ -33,8 +33,12 @@ pythonPlatform = "All"
 typeCheckingMode = "basic"
 
 [tool.ruff]
-select = ["E", "W", "F", "UP", "C", "T", "PYI", "Q"]
-ignore = ["E402", "E501", "C901", "UP037"]
+line-length = 120
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "UP", "C", "T", "PYI", "PT", "Q"]
+ignore = ["E402", "C901", "UP037"]
 
 [tool.nonebot]
 adapters = [
