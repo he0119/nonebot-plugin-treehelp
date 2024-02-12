@@ -10,7 +10,7 @@ def pytest_configure(config: pytest.Config) -> None:
 
 
 @pytest.fixture(autouse=True)
-def register_adapters(nonebug_init: None):
+def _register_adapters(nonebug_init: None):
     from nonebot import get_driver
     from nonebot.adapters.console import Adapter as ConsoleAdapter
     from nonebot.adapters.onebot.v11 import Adapter as OnebotV11Adapter
@@ -22,7 +22,7 @@ def register_adapters(nonebug_init: None):
     driver.register_adapter(OnebotV12Adapter)
 
 
-@pytest.fixture
+@pytest.fixture()
 def app(nonebug_init: None):
     clear_plugins()
     # 加载插件
