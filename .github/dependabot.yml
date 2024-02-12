@@ -21,6 +21,6 @@ updates:
     schedule:
       interval: "daily"
     groups:
-      actions-update:
+      actions:
         patterns:
           - "*"

@@ -24,14 +24,6 @@ pytest-xdist = "^3.0.2"
 pytest-mock = "^3.10.0"
 pytest-asyncio = ">=0.20.2,<0.22.0"
 
-[tool.black]
-line-length = 88
-
-[tool.isort]
-profile = "black"
-line_length = 88
-skip_gitignore = true
-
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 
