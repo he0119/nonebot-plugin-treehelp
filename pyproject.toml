@@ -11,12 +11,11 @@ documentation = "https://github.com/he0119/nonebot-plugin-treehelp#readme"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-nonebot2 = "^2.0.0"
+nonebot2 = "^2.2.0"
 
 [tool.poetry.group.dev.dependencies]
-nb-cli = "^1.0.4"
-nonebot-adapter-console = "^0.4.0"
-nonebot-adapter-onebot = "^2.2.3"
+nonebot-adapter-console = { git = "https://github.com/he0119/adapter-console.git", rev = "feat/pydantic-v2" }
+nonebot-adapter-onebot = { git = "https://github.com/nonebot/adapter-onebot.git", rev = "feat/pydantic-v2" }
 
 [tool.poetry.group.test.dependencies]
 nonebug = "^0.3.1"
