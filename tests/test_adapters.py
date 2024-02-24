@@ -16,7 +16,9 @@ async def test_adapters(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(event, "插件：\n帮助 # 获取插件帮助信息\n适配器 # 测试不同适配器", True)
+        ctx.should_call_send(
+            event, "插件：\n帮助 # 获取插件帮助信息\n适配器 # 测试不同适配器", True
+        )
         ctx.should_finished()
 
 

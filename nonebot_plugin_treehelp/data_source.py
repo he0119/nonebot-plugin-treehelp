@@ -25,7 +25,9 @@ def map_command_to_plguin(plugin: "Plugin"):
     for matcher in matchers:
         checkers = matcher.rule.checkers
         command_handler = next(
-            filter(lambda x: isinstance(x.call, (CommandRule, ShellCommandRule)), checkers),
+            filter(
+                lambda x: isinstance(x.call, (CommandRule, ShellCommandRule)), checkers
+            ),
             None,
         )
         if not command_handler:
@@ -39,7 +41,9 @@ def map_command_to_plguin(plugin: "Plugin"):
 
 def format_description(plugins: List["Plugin"]) -> str:
     """格式化描述"""
-    return "\n".join(sorted(f"{x.metadata.name} # {x.metadata.description}" for x in plugins))
+    return "\n".join(
+        sorted(f"{x.metadata.name} # {x.metadata.description}" for x in plugins)
+    )
 
 
 def is_supported_adapter(bot: "Bot", metadata: "PluginMetadata") -> bool:
@@ -108,7 +112,9 @@ def get_plugin_list(bot: "Bot", tree: bool = False) -> str:
     """获取插件列表"""
     # 仅保留根插件
     plugins = [
-        plugin for plugin in get_plugins().values() if plugin.parent_plugin is None and is_supported(bot, plugin)
+        plugin
+        for plugin in get_plugins().values()
+        if plugin.parent_plugin is None and is_supported(bot, plugin)
     ]
     sorted_plugins = sorted(plugins, key=lambda x: x.metadata.name)  # type: ignore
 
@@ -150,7 +156,9 @@ def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
 
     sub_plugins = [plugin for plugin in plugin.sub_plugins if is_supported(bot, plugin)]
     sub_plugins_desc = format_description(sub_plugins)
-    return "\n\n".join([x for x in [metadata.name, metadata.usage, sub_plugins_desc] if x])
+    return "\n\n".join(
+        [x for x in [metadata.name, metadata.usage, sub_plugins_desc] if x]
+    )
 
 
 def get_tree_string(

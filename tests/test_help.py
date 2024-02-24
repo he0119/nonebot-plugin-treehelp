@@ -61,7 +61,8 @@ async def test_help_command_error(app: App):
         ctx.receive_event(bot, event)
         ctx.should_call_send(
             event,
-            "usage: 帮助 [-h] [-t] [插件名]\n帮助: error: unrecognized arguments: --test\n",
+            "usage: 帮助 [-h] [-t] [插件名]\n"
+            "帮助: error: unrecognized arguments: --test\n",
             True,
         )
         ctx.should_finished()
@@ -98,7 +99,9 @@ async def test_help_by_command(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(event, "复杂功能\n\n/复杂功能\n\n二级功能 # 测试插件二级插件", True)
+        ctx.should_call_send(
+            event, "复杂功能\n\n/复杂功能\n\n二级功能 # 测试插件二级插件", True
+        )
         ctx.should_finished()
 
     async with app.test_matcher(help_cmd) as ctx:
@@ -107,7 +110,9 @@ async def test_help_by_command(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(event, "复杂功能\n\n/复杂功能\n\n二级功能 # 测试插件二级插件", True)
+        ctx.should_call_send(
+            event, "复杂功能\n\n/复杂功能\n\n二级功能 # 测试插件二级插件", True
+        )
         ctx.should_finished()
 
     async with app.test_matcher(help_cmd) as ctx:
@@ -116,5 +121,7 @@ async def test_help_by_command(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(event, "复杂功能\n\n/复杂功能\n\n二级功能 # 测试插件二级插件", True)
+        ctx.should_call_send(
+            event, "复杂功能\n\n/复杂功能\n\n二级功能 # 测试插件二级插件", True
+        )
         ctx.should_finished()

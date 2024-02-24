@@ -16,7 +16,9 @@ async def test_root(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(event, "插件：\n帮助 # 获取插件帮助信息\n测试 # 一个测试插件", True)
+        ctx.should_call_send(
+            event, "插件：\n帮助 # 获取插件帮助信息\n测试 # 一个测试插件", True
+        )
         ctx.should_finished()
 
 
