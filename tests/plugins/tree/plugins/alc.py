@@ -8,4 +8,10 @@ __plugin_meta__ = PluginMetadata(
 )
 
 alconna = on_alconna(Alconna("alconna"))
-alconna.shortcut("alc")
+alconna.shortcut(
+    "alc",
+    {
+        "prefix": True,
+        "command": "alconna",
+    },
+)

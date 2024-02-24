@@ -40,7 +40,13 @@ def map_command_to_plguin(plugin: "Plugin"):
             continue
 
         if AlconnaRule and isinstance(command_handler.call, AlconnaRule):
-            cmds = [(str(command_handler.call.command.command),)]
+            command = command_handler.call.command
+            cmds = [(str(command.command),)]
+
+            shortcuts = command.get_shortcuts()
+            for shortcut in shortcuts:
+                cmds.append((shortcut.split()[0],))
+
         else:
             command = cast(Union[CommandRule, ShellCommandRule], command_handler.call)
             cmds = command.cmds
