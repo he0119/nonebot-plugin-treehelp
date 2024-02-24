@@ -125,3 +125,12 @@ async def test_help_by_command(app: App):
             event, "复杂功能\n\n/复杂功能\n\n二级功能 # 测试插件二级插件", True
         )
         ctx.should_finished()
+
+    async with app.test_matcher(help_cmd) as ctx:
+        bot = ctx.create_bot()
+        message = message = make_fake_message()("/help alconna")
+        event = make_fake_event(_message=message)()
+
+        ctx.receive_event(bot, event)
+        ctx.should_call_send(event, "Alconna\n\n/alconna", True)
+        ctx.should_finished(help_cmd)
