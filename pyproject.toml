@@ -22,7 +22,7 @@ nonebug = "^0.3.1"
 pytest-cov = "^4.0.0"
 pytest-xdist = "^3.0.2"
 pytest-mock = "^3.10.0"
-pytest-asyncio = ">=0.20.2,<0.22.0"
+pytest-asyncio = ">=0.20.2,<0.24.0"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
