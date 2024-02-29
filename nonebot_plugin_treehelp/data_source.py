@@ -4,14 +4,15 @@
 """
 from typing import TYPE_CHECKING, Dict, List, Optional, Set, Tuple, Union, cast
 
-from nonebot import get_driver, get_loaded_plugins
+from nonebot import get_driver, get_loaded_plugins, require
 from nonebot.rule import CommandRule, ShellCommandRule
 
 try:
+    require("nonebot_plugin_alconna")
     from nonebot_plugin_alconna.rule import AlconnaRule
 
     COMMAND_RULES = (CommandRule, ShellCommandRule, AlconnaRule)
-except ImportError:
+except (ImportError, RuntimeError):
     AlconnaRule = None
     COMMAND_RULES = (CommandRule, ShellCommandRule)
 
