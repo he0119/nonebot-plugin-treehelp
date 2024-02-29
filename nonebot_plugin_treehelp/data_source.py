@@ -12,7 +12,7 @@ try:
     from nonebot_plugin_alconna.rule import AlconnaRule
 
     COMMAND_RULES = (CommandRule, ShellCommandRule, AlconnaRule)
-except (ImportError, RuntimeError):
+except (ImportError, RuntimeError):  # pragma: no cover
     AlconnaRule = None
     COMMAND_RULES = (CommandRule, ShellCommandRule)
 
