@@ -4,8 +4,17 @@
 """
 from typing import TYPE_CHECKING, Dict, List, Optional, Set, Tuple, Union, cast
 
-from nonebot import get_driver, get_loaded_plugins
+from nonebot import get_driver, get_loaded_plugins, require
 from nonebot.rule import CommandRule, ShellCommandRule
+
+try:
+    require("nonebot_plugin_alconna")
+    from nonebot_plugin_alconna.rule import AlconnaRule
+
+    COMMAND_RULES = (CommandRule, ShellCommandRule, AlconnaRule)
+except (ImportError, RuntimeError):  # pragma: no cover
+    AlconnaRule = None
+    COMMAND_RULES = (CommandRule, ShellCommandRule)
 
 from .config import plugin_config
 
@@ -25,24 +34,32 @@ def map_command_to_plguin(plugin: "Plugin"):
     for matcher in matchers:
         checkers = matcher.rule.checkers
         command_handler = next(
-            filter(
-                lambda x: isinstance(x.call, (CommandRule, ShellCommandRule)), checkers
-            ),
+            filter(lambda x: isinstance(x.call, COMMAND_RULES), checkers),
             None,
         )
         if not command_handler:
             continue
 
-        command = cast(Union[CommandRule, ShellCommandRule], command_handler.call)
+        if AlconnaRule and isinstance(command_handler.call, AlconnaRule):
+            command = command_handler.call.command
+            cmds = [(str(command.command),)]
 
-        for cmd in command.cmds:
+            shortcuts = command.get_shortcuts()
+            for shortcut in shortcuts:
+                cmds.append((shortcut.split()[0],))
+
+        else:
+            command = cast(Union[CommandRule, ShellCommandRule], command_handler.call)
+            cmds = command.cmds
+
+        for cmd in cmds:
             _commands[cmd] = plugin
 
 
 def format_description(plugins: List["Plugin"]) -> str:
     """格式化描述"""
     return "\n".join(
-        sorted(f"{x.metadata.name} # {x.metadata.description}" for x in plugins)
+        sorted(f"{x.metadata.name} # {x.metadata.description}" for x in plugins)  # type: ignore
     )
 
 
