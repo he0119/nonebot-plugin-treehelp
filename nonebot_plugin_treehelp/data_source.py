@@ -44,9 +44,12 @@ def map_command_to_plguin(plugin: "Plugin"):
             command = command_handler.call.command
             cmds = [(str(command.command),)]
 
-            shortcuts = command.get_shortcuts()
-            for shortcut in shortcuts:
-                cmds.append((shortcut.split()[0],))
+            try:
+                shortcuts = command.get_shortcuts()
+                for shortcut in shortcuts:
+                    cmds.append((shortcut.split()[0],))
+            except ValueError:
+                pass
 
         else:
             command = cast(Union[CommandRule, ShellCommandRule], command_handler.call)
