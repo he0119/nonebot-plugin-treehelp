@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 ## [Unreleased]
 
+## [0.4.1] - 2024-03-01
+
 ### Fixed
 
 - 修复命令没有 shortcut 时的报错
@@ -72,7 +74,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 - 可以使用的版本。
 
-[unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.4.0...HEAD
+[unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.1.0...v0.2.0
