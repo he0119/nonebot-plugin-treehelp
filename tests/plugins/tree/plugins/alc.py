@@ -15,3 +15,5 @@ alconna.shortcut(
         "command": "alconna",
     },
 )
+
+no_shortcut = on_alconna(Alconna("no_shortcut"))
