@@ -1,4 +1,5 @@
-""" 配置 """
+"""配置"""
+
 from typing import List
 
 from nonebot import get_plugin_config

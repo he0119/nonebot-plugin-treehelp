@@ -1,4 +1,5 @@
-""" 插件支持的适配器不存在 """
+"""插件支持的适配器不存在"""
+
 from nonebot.plugin import PluginMetadata
 
 __plugin_meta__ = PluginMetadata(
