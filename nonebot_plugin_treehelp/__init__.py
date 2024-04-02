@@ -1,7 +1,8 @@
-""" 帮助
+"""帮助
 
 通过读取插件元信息生成帮助信息
 """
+
 from nonebot import on_shell_command
 from nonebot.adapters import Bot
 from nonebot.exception import ParserExit

@@ -1,7 +1,8 @@
-""" 帮助数据
+"""帮助数据
 
 获取插件的帮助信息，并通过子插件的形式获取次级菜单
 """
+
 from typing import TYPE_CHECKING, Dict, List, Optional, Set, Tuple, Union, cast
 
 from nonebot import get_driver, get_loaded_plugins, require
