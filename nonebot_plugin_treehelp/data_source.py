@@ -10,10 +10,12 @@ from nonebot.rule import CommandRule, ShellCommandRule
 
 try:
     require("nonebot_plugin_alconna")
+    from nonebot_plugin_alconna import command_manager
     from nonebot_plugin_alconna.rule import AlconnaRule
 
     COMMAND_RULES = (CommandRule, ShellCommandRule, AlconnaRule)
 except (ImportError, RuntimeError):  # pragma: no cover
+    command_manager = None
     AlconnaRule = None
     COMMAND_RULES = (CommandRule, ShellCommandRule)
 
@@ -41,18 +43,18 @@ def map_command_to_plguin(plugin: "Plugin"):
         if not command_handler:
             continue
 
-        if AlconnaRule and isinstance(command_handler.call, AlconnaRule):
+        if (
+            AlconnaRule
+            and isinstance(command_handler.call, AlconnaRule)
+            and command_manager
+        ):
             command = command_handler.call.command()
-            if not command:
+            if not command:  # pragma: no cover
                 continue
 
             cmds = [(str(command.command),)]
-            try:
-                shortcuts = command.get_shortcuts()
-                for shortcut in shortcuts:
-                    cmds.append((shortcut.split()[0],))
-            except ValueError:
-                pass
+            shortcuts = command_manager.get_shortcut(command)
+            cmds.extend([(shortcut,) for shortcut in shortcuts])
 
         else:
             command = cast(Union[CommandRule, ShellCommandRule], command_handler.call)
