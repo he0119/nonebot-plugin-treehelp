@@ -42,9 +42,11 @@ def map_command_to_plguin(plugin: "Plugin"):
             continue
 
         if AlconnaRule and isinstance(command_handler.call, AlconnaRule):
-            command = command_handler.call.command
-            cmds = [(str(command.command),)]
+            command = command_handler.call.command()
+            if not command:
+                continue
 
+            cmds = [(str(command.command),)]
             try:
                 shortcuts = command.get_shortcuts()
                 for shortcut in shortcuts:
