@@ -3,7 +3,7 @@
 获取插件的帮助信息，并通过子插件的形式获取次级菜单
 """
 
-from typing import TYPE_CHECKING, Dict, List, Optional, Set, Tuple, Union, cast
+from typing import TYPE_CHECKING, Optional, Union, cast
 
 from nonebot import get_driver, get_loaded_plugins, require
 from nonebot.rule import CommandRule, ShellCommandRule
@@ -25,8 +25,8 @@ if TYPE_CHECKING:
 
 global_config = get_driver().config
 
-_plugins: Optional[Dict[str, "Plugin"]] = None
-_commands: Dict[Tuple[str, ...], "Plugin"] = {}
+_plugins: Optional[dict[str, "Plugin"]] = None
+_commands: dict[tuple[str, ...], "Plugin"] = {}
 
 
 def map_command_to_plguin(plugin: "Plugin"):
@@ -60,7 +60,7 @@ def map_command_to_plguin(plugin: "Plugin"):
             _commands[cmd] = plugin
 
 
-def format_description(plugins: List["Plugin"]) -> str:
+def format_description(plugins: list["Plugin"]) -> str:
     """格式化描述"""
     return "\n".join(
         sorted(f"{x.metadata.name} # {x.metadata.description}" for x in plugins)  # type: ignore
@@ -116,7 +116,7 @@ def is_supported(bot: "Bot", plugin: "Plugin") -> bool:
     return True
 
 
-def get_plugins() -> Dict[str, "Plugin"]:
+def get_plugins() -> dict[str, "Plugin"]:
     """获取适配了元信息的插件"""
     global _plugins
 
@@ -184,8 +184,8 @@ def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
 
 def get_tree_string(
     bot: "Bot",
-    docs: List[str],
-    plugins: Set["Plugin"],
+    docs: list[str],
+    plugins: set["Plugin"],
     previous_tree_bar: str,
 ) -> None:
     """通过递归获取树形结构的字符串"""

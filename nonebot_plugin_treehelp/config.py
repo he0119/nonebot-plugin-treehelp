@@ -1,13 +1,11 @@
 """配置"""
 
-from typing import List
-
 from nonebot import get_plugin_config
 from pydantic import BaseModel
 
 
 class Config(BaseModel):
-    treehelp_ignored_plugins: List[str] = []
+    treehelp_ignored_plugins: list[str] = []
     """需要忽略的插件"""
 
 
