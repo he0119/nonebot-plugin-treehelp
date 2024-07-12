@@ -16,7 +16,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
         os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
     env:
@@ -25,14 +25,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Python
-        uses: he0119/setup-python@main
+      - name: Setup rye
+        uses: he0119/setup-rye@feat/windows
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: poetry install
+          enable-cache: true
+          cache-prefix: ${{ env.PYTHON_VERSION }}
+      - name: Install prerequisites
+        run: |
+          rye pin ${{ env.PYTHON_VERSION }}
+          rye sync
       - name: Run tests
-        run: poetry run pytest -n auto --cov=nonebot_plugin_treehelp --cov-report xml
+        run: rye run test
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:

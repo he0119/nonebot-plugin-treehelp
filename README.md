@@ -19,9 +19,9 @@ _✨ NoneBot 树形帮助插件 ✨_
   <a href="https://pypi.python.org/pypi/nonebot-plugin-treehelp">
     <img src="https://img.shields.io/pypi/v/nonebot-plugin-treehelp.svg" alt="pypi">
   </a>
-  <img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="python">
+  <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="python">
   <a href="https://codecov.io/gh/he0119/nonebot-plugin-treehelp">
-    <img src="https://codecov.io/gh/he0119/nonebot-plugin-treehelp/branch/main/graph/badge.svg?token=jd5ufc1alv"/>
+    <img src="https://codecov.io/gh/he0119/nonebot-plugin-treehelp/branch/main/graph/badge.svg?token=jd5ufc1alv" alt="codecov"/>
   </a>
   <a href="https://jq.qq.com/?_wv=1027&k=7zQUpiGp">
     <img src="https://img.shields.io/badge/QQ%E7%BE%A4-730374631-orange?style=flat-square" alt="QQ Chat Group">
