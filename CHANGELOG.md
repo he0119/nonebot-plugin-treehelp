@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 ## [Unreleased]
 
+## [0.5.0] - 2024-07-13
+
 ### Fixed
 
 - 适配最新版的 Alconna
@@ -82,7 +84,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 - 可以使用的版本。
 
-[unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.4.1...HEAD
+[unreleased]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/he0119/nonebot-plugin-treehelp/compare/v0.2.0...v0.3.0
