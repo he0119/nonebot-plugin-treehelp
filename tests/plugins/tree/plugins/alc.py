@@ -1,4 +1,7 @@
+from nonebot import require
 from nonebot.plugin import PluginMetadata
+
+require("nonebot_plugin_alconna")
 from nonebot_plugin_alconna import Alconna, on_alconna
 
 __plugin_meta__ = PluginMetadata(
