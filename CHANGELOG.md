@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/zh-CN/
 
 ## [Unreleased]
 
+### Fixed
+
+- 适配最新版的 Alconna
+
+### Removed
+
+- 移除 Python 3.8 支持
+
 ## [0.4.1] - 2024-03-01
 
 ### Fixed
