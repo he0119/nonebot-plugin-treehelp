@@ -22,7 +22,7 @@ def _register_adapters(nonebug_init: None):
     driver.register_adapter(OnebotV12Adapter)
 
 
-@pytest.fixture()
+@pytest.fixture
 def app(nonebug_init: None):
     clear_plugins()
     # 加载插件
