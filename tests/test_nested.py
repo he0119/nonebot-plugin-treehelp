@@ -16,9 +16,7 @@ async def test_parent(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(
-            event, "插件：\n帮助 # 获取插件帮助信息\n测试 # 一个测试插件", True
-        )
+        ctx.should_call_send(event, "插件：\n帮助 # 获取插件帮助信息\n测试 # 一个测试插件", True)
         ctx.should_finished()
 
 
@@ -35,7 +33,5 @@ async def test_sub(app: App):
         event = make_fake_event(_message=message)()
 
         ctx.receive_event(bot, event)
-        ctx.should_call_send(
-            event, "测试\n\n功能一 # 测试插件子插件一\n功能二 # 测试插件子插件二", True
-        )
+        ctx.should_call_send(event, "测试\n\n功能一 # 测试插件子插件一\n功能二 # 测试插件子插件二", True)
         ctx.should_finished()

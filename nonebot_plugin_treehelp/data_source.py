@@ -43,11 +43,7 @@ def map_command_to_plguin(plugin: "Plugin"):
         if not command_handler:
             continue
 
-        if (
-            AlconnaRule
-            and isinstance(command_handler.call, AlconnaRule)
-            and command_manager
-        ):
+        if AlconnaRule and isinstance(command_handler.call, AlconnaRule) and command_manager:
             command = command_handler.call.command()
             if not command:  # pragma: no cover
                 continue
@@ -57,7 +53,7 @@ def map_command_to_plguin(plugin: "Plugin"):
             cmds.extend([(shortcut,) for shortcut in shortcuts])
 
         else:
-            command = cast(Union[CommandRule, ShellCommandRule], command_handler.call)
+            command = cast("Union[CommandRule, ShellCommandRule]", command_handler.call)
             cmds = command.cmds
 
         for cmd in cmds:
@@ -137,9 +133,7 @@ def get_plugin_list(bot: "Bot", tree: bool = False) -> str:
     """获取插件列表"""
     # 仅保留根插件
     plugins = [
-        plugin
-        for plugin in get_plugins().values()
-        if plugin.parent_plugin is None and is_supported(bot, plugin)
+        plugin for plugin in get_plugins().values() if plugin.parent_plugin is None and is_supported(bot, plugin)
     ]
     sorted_plugins = sorted(plugins, key=lambda x: x.metadata.name)  # type: ignore
 
@@ -181,9 +175,7 @@ def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
 
     sub_plugins = [plugin for plugin in plugin.sub_plugins if is_supported(bot, plugin)]
     sub_plugins_desc = format_description(sub_plugins)
-    return "\n\n".join(
-        [x for x in [metadata.name, metadata.usage, sub_plugins_desc] if x]
-    )
+    return "\n\n".join([x for x in [metadata.name, metadata.usage, sub_plugins_desc] if x])
 
 
 def get_tree_string(
