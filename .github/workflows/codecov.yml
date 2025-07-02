@@ -25,19 +25,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup rye
-        uses: eifinger/setup-rye@d4c3ac7b15d8bf2e0b45e2d257c6b5cdbebc3643
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
-          cache-prefix: ${{ env.PYTHON_VERSION }}
-      - name: Install prerequisites
-        run: |
-          rye pin ${{ env.PYTHON_VERSION }}
-          rye sync
+          python-version: ${{ matrix.python-version }}
+
       - name: Run tests
-        run: rye run test
+        run: uv run poe test
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          env_vars: OS,PYTHON_VERSION
+
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           env_vars: OS,PYTHON_VERSION
