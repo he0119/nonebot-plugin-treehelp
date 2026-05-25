@@ -3,7 +3,7 @@
 获取插件的帮助信息，并通过子插件的形式获取次级菜单
 """
 
-from typing import TYPE_CHECKING, Optional, Union, cast
+from typing import TYPE_CHECKING, cast
 
 from nonebot import get_driver, get_loaded_plugins, require
 from nonebot.rule import CommandRule, ShellCommandRule
@@ -27,7 +27,7 @@ if TYPE_CHECKING:
 
 global_config = get_driver().config
 
-_plugins: Optional[dict[str, "Plugin"]] = None
+_plugins: dict[str, "Plugin"] | None = None
 _commands: dict[tuple[str, ...], "Plugin"] = {}
 
 
@@ -53,7 +53,7 @@ def map_command_to_plguin(plugin: "Plugin"):
             cmds.extend([(shortcut,) for shortcut in shortcuts])
 
         else:
-            command = cast("Union[CommandRule, ShellCommandRule]", command_handler.call)
+            command = cast("CommandRule | ShellCommandRule", command_handler.call)
             cmds = command.cmds
 
         for cmd in cmds:
@@ -147,7 +147,7 @@ def get_plugin_list(bot: "Bot", tree: bool = False) -> str:
     return "\n".join(docs)
 
 
-def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> Optional[str]:
+def get_plugin_help(bot: "Bot", name: str, tree: bool = False) -> str | None:
     """通过插件获取命令的帮助"""
     plugins = get_plugins()
 
