@@ -37,13 +37,11 @@
 ## 4. 重要模式与约定
 
 - **插件元信息是唯一展示来源**:
-
   - 只有存在 `PluginMetadata` 的插件才会进入帮助系统。
   - 普通列表和树形列表都应展示 `metadata.name` 与 `metadata.description`。
   - 单插件帮助输出由插件名、`metadata.usage` 和可见子插件描述组成。
 
 - **插件过滤规则**:
-
   - `metadata.type` 为空时默认展示。
   - `metadata.type == "application"` 时展示。
   - `metadata.type == "library"` 或其它类型时不展示。
@@ -51,27 +49,23 @@
   - 设置了 `supported_adapters` 的插件，只在当前 `Bot` 适配器匹配时展示。
 
 - **插件树生成**:
-
   - 根列表只展示 `parent_plugin is None` 的插件。
   - 子插件通过 `plugin.sub_plugins` 递归输出。
   - 树形字符当前使用 `├──`、`└──` 和 `│` 组合；修改格式时同步更新树相关测试。
   - 排序使用插件展示名称，保持输出稳定。
 
 - **命令到插件的映射**:
-
   - `get_plugins()` 首次执行时会缓存插件并填充 `_commands`。
   - 内置命令规则从 `CommandRule` / `ShellCommandRule` 的 `cmds` 读取。
   - Alconna 支持是可选能力，导入失败或运行时不可用时必须优雅降级。
   - 通过命令名查找插件时会使用 `global_config.command_sep` 拆分命令；测试中配置了 `"."` 和 `"。"`。
 
 - **测试隔离**:
-
   - `tests/utils.py` 的 `clear_plugins()` 会清理 NoneBot 插件注册和相关模块缓存。
   - `tests/conftest.py` 每个测试重新加载 `nonebot_plugin_treehelp`，并注册 Console、OneBot V11、OneBot V12 适配器。
   - 新增测试时优先复用 `make_fake_message()`、`make_fake_event()` 和 `nonebug` 的 `app.test_matcher(...)` 模式。
 
 - **配置**:
-
   - 不要硬编码可变过滤规则。需要用户配置的行为应添加到 `config.py` 的 `Config` 模型中，并提供合理默认值。
   - 修改配置项时同步更新 README 的配置说明和相关测试。
 
