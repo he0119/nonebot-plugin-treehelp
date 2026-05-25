@@ -5,7 +5,7 @@ description = "适用于 Nonebot2 的树形帮助插件"
 authors = [{ name = "uy/sun", email = "hmy0119@gmail.com" }]
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 dependencies = ["nonebot2>=2.2.0"]
 
 [project.urls]
@@ -54,13 +54,13 @@ bump = "bump-my-version bump"
 show-bump = "bump-my-version show-bump"
 
 [tool.pyright]
-pythonVersion = "3.9"
+pythonVersion = "3.10"
 pythonPlatform = "All"
 typeCheckingMode = "standard"
 
 [tool.ruff]
 line-length = 120
-target-version = "py39"
+target-version = "py310"
 
 [tool.ruff.format]
 line-ending = "lf"
